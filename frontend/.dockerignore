@@ -1,0 +1,11 @@
+# 依存関係
+node_modules
+
+# ビルド成果物やキャッシュ
+dist
+build
+tmp
+
+# バージョン管理
+.git
+.gitignore
