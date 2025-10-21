@@ -72,6 +72,11 @@ docker-compose.override.yml
 **/docker-compose.override.yml
 
 # -------------------------
+# Git
+# -------------------------
+*.git
+
+# -------------------------
 # SQLAlchemy / Alembic
 # -------------------------
 
