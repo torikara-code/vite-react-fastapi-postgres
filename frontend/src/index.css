@@ -15,6 +15,9 @@
   h1 {
     @apply text-6xl leading-tight;
   }
+  #root {
+    @apply w-full;
+  }
 }
 
 button {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import EditModal from "../components/EditModal";
 
 const About: React.FC = () => {
   type User = {
@@ -9,6 +10,8 @@ const About: React.FC = () => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [name, setName] = useState("");
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Axiosインスタンス（必要に応じて共通設定）
   const api = axios.create({
@@ -38,17 +41,21 @@ const About: React.FC = () => {
     }
   };
 
-  // ユーザー更新
-  const updateUser = async (id: number) => {
-    const newName = prompt("新しい名前を入力してください:");
-    if (!newName) return;
+  const openEditModal = (user: User) => {
+    setEditingUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleSave = async (id: number, newName: string) => {
     try {
       const res = await api.put<User>(`/api/v1/user/${id}`, {
+        id,
         name: newName,
       });
       setUsers(users.map((u) => (u.id === id ? res.data : u)));
+      setIsModalOpen(false);
     } catch (error) {
-      console.error("ユーザー更新エラー:", error);
+      console.error(error);
     }
   };
 
@@ -97,7 +104,7 @@ const About: React.FC = () => {
             <span className="text-gray-800 font-medium">{u.name}</span>
             <div className="space-x-2">
               <button
-                onClick={() => updateUser(u.id)}
+                onClick={() => openEditModal(u)}
                 className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded-md transition-colors"
               >
                 編集
@@ -112,6 +119,16 @@ const About: React.FC = () => {
           </li>
         ))}
       </ul>
+
+      {editingUser && (
+        <EditModal
+          userId={editingUser.id}
+          currentName={editingUser.name}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSave}
+        />
+      )}
     </div>
   );
 };
