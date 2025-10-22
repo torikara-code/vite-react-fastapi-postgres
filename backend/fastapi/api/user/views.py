@@ -57,10 +57,10 @@ async def update(
 
 
 # id指定削除API
-@router.delete("/{note_id}", status_code=204)
+@router.delete("/{user_id}", status_code=204)
 async def delete(
     request: Request,
-    note_id: int = Path(..., description="削除対象のユーザID"),
+    user_id: int = Path(..., description="削除対象のユーザID"),
     use_case: DeleteUser = Depends(DeleteUser),
 ) -> None:
-    await use_case.execute(note_id)
+    await use_case.execute(user_id)
