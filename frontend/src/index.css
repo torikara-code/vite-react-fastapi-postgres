@@ -16,7 +16,7 @@
     @apply text-6xl leading-tight;
   }
   #root {
-    @apply w-full;
+    @apply w-screen h-screen overflow-auto;
   }
 }
 

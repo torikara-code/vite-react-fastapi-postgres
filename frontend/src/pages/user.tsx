@@ -74,8 +74,8 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-6 box-border">
-      <h1 className="text-3xl font-bold text-slate-200 mb-6">
+    <div className="flex flex-col items-center p-6 box-border mt-24">
+      <h1 className="text-3xl font-bold text-slate-200 py-4">
         ユーザー管理 CRUD
       </h1>
 
